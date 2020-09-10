@@ -12,7 +12,7 @@ public class RayCarver : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if(Input.GetMouseButton(0)||Input.GetMouseButton(1)){
-            RaycastHit2D hit = Physics2D.Raycast(mousePos,Vector2.down+Vector2.right);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos,Vector2.down);
             if(hit){
                 line.enabled = true;
                 line.SetPositions(new Vector3[]{mousePos,hit.point});

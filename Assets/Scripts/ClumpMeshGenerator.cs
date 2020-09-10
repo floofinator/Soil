@@ -51,15 +51,17 @@ public class ClumpMeshGenerator : MonoBehaviour
 			Destroy(currentColliders[i]);
 		}
 
-		//creates a polygon collider for each mesh outline.
-		foreach (List<int> outline in outlines) {
-			PolygonCollider2D edgeCollider = gameObject.AddComponent<PolygonCollider2D>();
-			Vector2[] edgePoints = new Vector2[outline.Count];
+		//creates a polygon collider and adds a path for each outline.
+		PolygonCollider2D edgeCollider = gameObject.AddComponent<PolygonCollider2D>();
+		edgeCollider.pathCount = outlines.Count;
+		for (int i = 0; i < outlines.Count; i++)
+		{
+			Vector2[] edgePoints = new Vector2[outlines[i].Count];
 
-			for (int i =0; i < outline.Count; i ++) {
-				edgePoints[i] = new Vector2(vertices[outline[i]].x,vertices[outline[i]].y);
+			for (int j = 0; j < outlines[i].Count; j ++) {
+				edgePoints[j] = new Vector2(vertices[outlines[i][j]].x,vertices[outlines[i][j]].y);
 			}
-			edgeCollider.points = edgePoints;
+			edgeCollider.SetPath(i,edgePoints);
 		}
 	}
 	void TriangulateSquare(Square square) {
